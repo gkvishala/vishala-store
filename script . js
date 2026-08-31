@@ -1,0 +1,31 @@
+let cart = [];
+
+function addToCart(productName) {
+    cart.push(productName);
+    alert(productName + " added to cart!");
+    displayCart();
+}
+
+function displayCart() {
+    let cartItems = document.getElementById("cartItems");
+
+    if (cart.length === 0) {
+        cartItems.innerHTML = "Cart is empty";
+        return;
+    }
+
+    cartItems.innerHTML = "";
+
+    cart.forEach(function(product, index) {
+        cartItems.innerHTML += `
+            <p>${product} 
+            <button onclick="removeFromCart(${index})">Remove</button>
+            </p>
+        `;
+    });
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    displayCart();
+}

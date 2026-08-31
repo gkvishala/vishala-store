@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vishala Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <h2>Vishala Store 🛍️</h2>
+
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#cart">Cart 🛒</a>
+        <a href="#login">Login</a>
+    </nav>
+<div id="login" class="login-section">
+    <h2>🔐 Login</h2>
+
+    <input type="text" id="username" placeholder="Username">
+    <br><br>
+
+    <input type="password" id="password" placeholder="Password">
+    <br><br>
+
+    <button onclick="login()">Login</button>
+</div>
+    <h1>Welcome to Vishala Store</h1>
+    <p>Shop your favorite products here!</p>
+    <div id="cart" class="cart-section"></div>
+        <h2>🛒 My Cart</h2>
+        <div id="cartItems">Cart is empty</div>
+</div>
+<div class="search-section">
+    <input type="text" id="searchBox" placeholder="🔍 Search products..." onkeyup="searchProducts()">
+</div>
+
+<div class="products">
+    <div class="products">
+
+    <div class="product">
+    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80" alt="T-Shirt">
+    <h2>👕 T-Shirt</h2>
+    <p>Price: ₹499</p>
+    <button onclick="addToCart('T-Shirt')">Add to Cart</button>
+</div>
+    
+<div class="product">
+    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt="Shoes">
+    <h2>👟 Shoes</h2>
+    <p>Price: ₹999</p>
+    <button onclick="addToCart('Shoes')">Add to Cart</button>
+</div>
+    
+
+    <div class="product">
+    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Headphones">
+    <h2>🎧 Headphones</h2>
+    <p>Price: ₹799</p>
+    <button onclick="addToCart('Headphones')">Add to Cart</button>
+</div>
+
+</div>
+
+<script>
+    function searchProducts() {
+    let searchText = document.getElementById("searchBox").value.toLowerCase();
+    let products = document.querySelectorAll(".product");
+
+    products.forEach(function(product) {
+        let productName = product.querySelector("h2").innerText.toLowerCase();
+
+        if (productName.includes(searchText)) {
+            product.style.display = "block";
+        } else {
+            product.style.display = "none";
+        }
+    });
+}
+let cart = [];
+
+let prices = {
+    "T-Shirt": 499,
+    "Shoes": 999,
+    "Headphones": 799
+};
+
+function addToCart(productName) {
+    cart.push(productName);
+    alert(productName + " added to cart!");
+    displayCart();
+}
+
+function displayCart() {
+    let cartItems = document.getElementById("cartItems");
+
+    if (cart.length === 0) {
+        cartItems.innerHTML = "Cart is empty";
+        return;
+    }
+
+    let total = 0;
+    cartItems.innerHTML = "";
+    let counts = {};
+cart.forEach(function(product) {
+    counts[product] = (counts[product] || 0) + 1;
+});
+    for (let product in counts) {
+    let quantity = counts[product];
+    let itemTotal = prices[product] * quantity;
+
+    total += itemTotal;
+
+    cartItems.innerHTML += `
+    <div class="cart-item">
+        <span>
+            ${product} - ₹${prices[product]} 
+            | Quantity: ${quantity}
+        </span>
+
+        <button onclick="increaseQuantity('${product}')">+</button>
+        <button onclick="decreaseQuantity('${product}')">−</button>
+        <button onclick="removeProduct('${product}')">🗑️ Remove</button>
+    </div>
+`;
+}
+   cartItems.innerHTML += `
+    <h3>Total Amount: ₹${total}</h3>
+    <button onclick="clearCart()">🗑️ Clear Cart</button>
+`;
+}    
+
+function increaseQuantity(product) {
+    cart.push(product);
+    displayCart();
+}
+
+function decreaseQuantity(product) {
+    let index = cart.indexOf(product);
+
+    if (index !== -1) {
+        cart.splice(index, 1);
+        displayCart();
+    }
+}
+
+function removeProduct(product) {
+    cart = cart.filter(function(item) {
+        return item !== product;
+    });
+
+    displayCart();
+}
+function clearCart() {
+    cart = [];
+    displayCart();
+}
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    displayCart();
+}
+function login() {
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if (username === "" || password === "") {
+        alert("Please enter username and password");
+        return;
+    }
+
+    document.getElementById("login").innerHTML = `
+        <h2>👋 Welcome, ${username}!</h2>
+        <p>Login successful 🎉</p>
+        <button onclick="logout()">Logout</button>
+    `;
+}
+
+function logout() {
+    location.reload();
+
+}
+</script>
+</body>
+</html>
