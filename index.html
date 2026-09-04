@@ -28,158 +28,221 @@
 </div>
     <h1>Welcome to Vishala Store</h1>
     <p>Shop your favorite products here!</p>
-    <div id="cart" class="cart-section"></div>
-        <h2>🛒 My Cart</h2>
-        <div id="cartItems">Cart is empty</div>
+    <div id="cart" class="cart-section">
+    <h2>🛒 My Cart</h2>
+    <div id="cartItems">Cart is empty</div>
 </div>
 <div class="search-section">
     <input type="text" id="searchBox" placeholder="🔍 Search products..." onkeyup="searchProducts()">
 </div>
+<div class="category-section">
+    <label for="categorySelect">🏷️ Category:</label>
+
+    <select id="categorySelect" onchange="filterCategory()">
+        <option value="all">All Products</option>
+        <option value="clothing">Clothing</option>
+        <option value="footwear">Footwear</option>
+        <option value="electronics">Electronics</option>
+        <option value="accessories">Accessories</option>
+    </select>
+</div>
 
 <div class="products">
-    <div class="products">
 
-    <div class="product">
-    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80" alt="T-Shirt">
-    <h2>👕 T-Shirt</h2>
-    <p>Price: ₹499</p>
-    <button onclick="addToCart('T-Shirt')">Add to Cart</button>
-</div>
-    
-<div class="product">
-    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt="Shoes">
-    <h2>👟 Shoes</h2>
-    <p>Price: ₹999</p>
-    <button onclick="addToCart('Shoes')">Add to Cart</button>
-</div>
-    
-
-    <div class="product">
-    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Headphones">
-    <h2>🎧 Headphones</h2>
-    <p>Price: ₹799</p>
-    <button onclick="addToCart('Headphones')">Add to Cart</button>
-</div>
-
-</div>
-
-<script>
-    function searchProducts() {
-    let searchText = document.getElementById("searchBox").value.toLowerCase();
-    let products = document.querySelectorAll(".product");
-
-    products.forEach(function(product) {
-        let productName = product.querySelector("h2").innerText.toLowerCase();
-
-        if (productName.includes(searchText)) {
-            product.style.display = "block";
-        } else {
-            product.style.display = "none";
-        }
-    });
-}
-let cart = [];
-
-let prices = {
-    "T-Shirt": 499,
-    "Shoes": 999,
-    "Headphones": 799
-};
-
-function addToCart(productName) {
-    cart.push(productName);
-    alert(productName + " added to cart!");
-    displayCart();
-}
-
-function displayCart() {
-    let cartItems = document.getElementById("cartItems");
-
-    if (cart.length === 0) {
-        cartItems.innerHTML = "Cart is empty";
-        return;
-    }
-
-    let total = 0;
-    cartItems.innerHTML = "";
-    let counts = {};
-cart.forEach(function(product) {
-    counts[product] = (counts[product] || 0) + 1;
-});
-    for (let product in counts) {
-    let quantity = counts[product];
-    let itemTotal = prices[product] * quantity;
-
-    total += itemTotal;
-
-    cartItems.innerHTML += `
-    <div class="cart-item">
-        <span>
-            ${product} - ₹${prices[product]} 
-            | Quantity: ${quantity}
-        </span>
-
-        <button onclick="increaseQuantity('${product}')">+</button>
-        <button onclick="decreaseQuantity('${product}')">−</button>
-        <button onclick="removeProduct('${product}')">🗑️ Remove</button>
+    <div class="product" data-category="clothing">
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80" alt="T-Shirt">
+        <h2>👕 T-Shirt</h2>
+        <p>Price: <del>₹499</del> <strong>₹399</strong></p>
+<p>🔥 20% OFF</p>
+<p>⭐️⭐️⭐️⭐️⭐️ 4.5/5</p>
+        <button onclick="addToCart('T-Shirt')">Add to Cart</button>
     </div>
-`;
-}
-   cartItems.innerHTML += `
-    <h3>Total Amount: ₹${total}</h3>
-    <button onclick="clearCart()">🗑️ Clear Cart</button>
-`;
-}    
+    <div class="product" data-category="clothing">
+   <img src="https://s3.amazonaws.com/s3.etukuri.mv/p8y0kn9M/wc1qqagr.jpg" alt="Black T-Shirt"> 
 
-function increaseQuantity(product) {
-    cart.push(product);
-    displayCart();
-}
+    <h2>👕 Black T-Shirt </h2>
 
-function decreaseQuantity(product) {
-    let index = cart.indexOf(product);
+    <p>Price: <del>₹599</del> <strong>₹449</strong></p>
 
-    if (index !== -1) {
-        cart.splice(index, 1);
-        displayCart();
-    }
-}
+    <p>🔥 25% OFF</p>
 
-function removeProduct(product) {
-    cart = cart.filter(function(item) {
-        return item !== product;
-    });
+    <p>⭐️⭐️⭐️⭐️ 4.2/5</p>
 
-    displayCart();
-}
-function clearCart() {
-    cart = [];
-    displayCart();
-}
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    displayCart();
-}
-function login() {
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+    <button onclick="addToCart('Black T-Shirt')">Add to Cart</button>
+</div>
 
-    if (username === "" || password === "") {
-        alert("Please enter username and password");
-        return;
-    }
+<div class="product" data-category="clothing">
+    <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=400&q=80" alt="Blue T-Shirt">
+    <h2>👕 Blue T-Shirt</h2>
+    <p>Price: ₹499</p>
+    <p>⭐️⭐️⭐️⭐️⭐️ 4.6/5</p>
+    <button onclick="addToCart('Blue T-Shirt')">Add to Cart</button>
+</div>
 
-    document.getElementById("login").innerHTML = `
-        <h2>👋 Welcome, ${username}!</h2>
-        <p>Login successful 🎉</p>
-        <button onclick="logout()">Logout</button>
-    `;
-}
+<div class="product" data-category="clothing">
+    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=400&q=80" alt="Printed T-Shirt">
+    <h2>👕 Printed T-Shirt</h2>
+    <p>Price: ₹549</p>
+    <p>⭐️⭐️⭐️⭐️ 4.3/5</p>
+    <button onclick="addToCart('Printed T-Shirt')">Add to Cart</button>
+</div>
 
-function logout() {
-    location.reload();
+    <div class="product" data-category="footwear">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt="Shoes">
+        <h2>👟 Shoes</h2>
+        <p>Price: <del>₹999</del> <strong>₹799</strong></p>
+<p>🔥 20% OFF</p>
+    </p> ⭐️⭐️⭐️⭐️⭐️ 4.5/5</p>
+        <button onclick="addToCart('Shoes')">Add to Cart</button>
+    </div>
+    <div class="product" data-category="footwear">
+    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt="Running Shoes">
+    <h2>👟 Running Shoes</h2>
+    <p>Price: ₹1199</p>
+    </p> ⭐️⭐️⭐️⭐️ 4.4/5</p>
+    <button onclick="addToCart('Running Shoes')">Add to Cart</button>
+</div>
 
-}
-</script>
+<div class="product" data-category="footwear">
+    <img src="https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3?auto=format&fit=crop&w=400&q=80" alt="Casual Shoes">
+    <h2>👟 Casual Shoes</h2>
+    <p>Price: ₹899</p>
+</p> ⭐️⭐️⭐️⭐️ 4.1/5</p>
+    <button onclick="addToCart('Casual Shoes')">Add to Cart</button>
+</div>
+
+<div class="product" data-category="footwear">
+    <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=400&q=80" alt="White Sneakers">
+    <h2>👟 White Sneakers</h2>
+    <p>Price: ₹1099</p>
+</p> ⭐️⭐️⭐️⭐️⭐️ 4.6/5</p>
+    <button onclick="addToCart('White Sneakers')">Add to Cart</button>
+</div>
+
+    <div class="product" data-category="electronics">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Headphones">
+        <h2>🎧 Headphones</h2>
+        <p>Price: <del>₹799</del> <strong>₹649</strong></p>
+<p>🔥 19% OFF</p>
+    </p>⭐️⭐️⭐️⭐️ 4.4/5</p>
+        <button onclick="addToCart('Headphones')">Add to Cart</button>
+    </div>
+
+    <div class="product" data-category="electronics">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80" alt="Smart Watch">
+        <h2>⌚ Smart Watch</h2>
+        <p>Price: <del>₹1499</del> <strong>₹1199</strong></p>
+<p>🔥 20% OFF</p>
+    </p>⭐️⭐️⭐️⭐️⭐️ 4.5/5</p>
+        <button onclick="addToCart('Smart Watch')">Add to Cart</button>
+    </div>
+
+    <div class="product" data-category="accessories">
+        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&q=80" alt="Backpack">
+        <h2>🎒 Backpack</h2>
+        <p>Price: <del>₹699</del> <strong>₹599</strong></p>
+<p>🔥 14% OFF</p>
+    </p>⭐️⭐️⭐️⭐️ 4.3/5</p>
+        <button onclick="addToCart('Backpack')">Add to Cart</button>
+    </div>
+
+    <div class="product" data-category="accessories">
+        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=400&q=80" alt="Sunglasses">
+        <h2>🕶️ Sunglasses</h2>
+        <p>Price: <del>₹399</del> <strong>₹349</strong></p>
+<p>🔥 13% OFF</p>
+    </p>⭐️⭐️⭐️⭐️ 4.1/5</p>
+        <button onclick="addToCart('Sunglasses')">Add to Cart</button>
+    </div>
+    <div class="product" data-category="accessories">
+    <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80" alt="Handbag">
+    <h2>👜 Handbag</h2>
+    <p>Price: ₹899</p>
+    </p>⭐️⭐️⭐️⭐️⭐️ 4.5/5</p>
+    <button onclick="addToCart('Handbag')">Add to Cart</button>
+</div>
+
+<div class="product" data-category="accessories">
+    <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=400&q=80" alt="Wallet">
+    <h2>👛 Wallet</h2>
+    <p>Price: ₹499</p>
+</p>⭐️⭐️⭐️⭐️ 4.2/5</p>
+    <button onclick="addToCart('Wallet')">Add to Cart</button>
+</div>
+
+<div class="product" data-category="accessories">
+    <img src="https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=400&q=80" alt="Cap">
+    <h2>🧢 Cap</h2>
+    <p>Price: ₹299</p>
+</p> ⭐️⭐️⭐️⭐️ 4.0/5</p>
+    <button onclick="addToCart('Cap')">Add to Cart</button>
+</div>
+
+    <div class="product" data-category="electronics">
+        <img src="https://images.unsplash.com/photo-1601593346740-925612772716?auto=format&fit=crop&w=400&q=80" alt="Phone Case">
+        <h2>📱 Phone Case</h2>
+        <p>Price: <del>₹1299</del> <strong>₹999</strong></p>
+<p>🔥 23% OFF</p>
+    </p>⭐️⭐️⭐️⭐️ 4.1/5</p>
+        <button onclick="addToCart('Phone Case')">Add to Cart</button>
+    </div>
+    <div class="product" data-category="electronics">
+    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=400&q=80" alt="Laptop">
+    <h2>💻 Laptop</h2>
+    <p>Price: ₹45999</p>
+    </p> ⭐️⭐️⭐️⭐️ 4.3/5</p>
+    <button onclick="addToCart('Laptop')">Add to Cart</button>
+</div>
+
+<div class="product" data-category="electronics">
+    <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=400&q=80" alt="Smartphone">
+    <h2>📱 Smartphone</h2>
+    <p>Price: ₹15999</p>
+</p>⭐️⭐️⭐️⭐️⭐️ 4.6/5</p>
+    <button onclick="addToCart('Smartphone')">Add to Cart</button>
+</div>
+
+<div class="product" data-category="electronics">
+    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=400&q=80" alt="Bluetooth Speaker">
+    <h2>🔊 Bluetooth Speaker</h2>
+    <p>Price: ₹1299</p>
+</p>⭐️⭐️⭐️⭐️ 4.2/5</p>
+    <button onclick="addToCart('Bluetooth Speaker')">Add to Cart</button>
+</div>
+
+    <div class="product" data-category="footwear">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80" alt="Sneakers">
+        <h2>👟 Sneakers</h2>
+        <p>Price: <del>₹299</del> <strong>₹249</strong></p>
+<p>🔥 17% OFF</p>
+    </p>⭐️⭐️⭐️⭐️⭐️ 4.5/5</p>
+        <button onclick="addToCart('Sneakers')">Add to Cart</button>
+    </div>
+
+</div>
+<div id="checkout" class="checkout-section" style="display: none;">
+    <h2>🛍️ Checkout</h2>
+
+    <input type="text" id="customerName" placeholder="Full Name">
+    <br><br>
+
+    <input type="text" id="customerPhone" placeholder="Phone Number">
+    <br><br>
+
+    <textarea id="customerAddress" placeholder="Delivery Address"></textarea>
+    <br><br>
+
+    <button onclick="placeOrder()">📦 Place Order</button>
+</div>
+<div id="orderConfirmation" class="confirmation-section" style="display: none;">
+    <h2>🎉 Order Confirmed!</h2>
+
+    <p>Thank you for shopping with Vishala Store.</p>
+
+    <p>Your order has been placed successfully. 📦</p>
+
+    <button onclick="continueShopping()">🛍️ Continue Shopping</button>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
